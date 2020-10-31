@@ -107,6 +107,17 @@ function Iterator:sum()
     return t[#t]
 end
 
+function Iterator:skip(n)
+    local remaining_to_skip = n
+    local old_f = self.f
+    self.f = function(x)
+        local fx, b = old_f(x)
+        remaining_to_skip = remaining_to_skip - 1
+        return fx, (remaining_to_skip < 0 and b)
+    end
+    return self
+end
+
 function print_table(t)
     for i, v in ipairs(t) do
         io.write(v .. " ")
