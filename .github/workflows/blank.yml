@@ -24,13 +24,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install lua
-        run: apt-get install -y lua5.3
+        run: sudo apt-get install -y lua5.3
       
       - name: Install luarocks
-        run: apt-get install -y luarocks
+        run: sudo apt-get install -y luarocks
       
       - name: Install git
-        run: apt-get install -y git
+        run: sudo apt-get install -y git
       
       - name: Clone and build busted
         run: |
