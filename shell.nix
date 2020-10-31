@@ -3,5 +3,6 @@ stdenv.mkDerivation {
 	name = "shell";
 	buildInputs = [
 	  lua5_3
+      lua53Packages.busted
 	];
 }
