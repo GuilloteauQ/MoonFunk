@@ -104,7 +104,7 @@ end
 function Iterator:sum()
     self:fold(function(x, s) return s + x end, 0)
     local t = self:consume()
-    return t[#t]
+    return t[#t] ~= nil and t[#t] or 0
 end
 
 function Iterator:skip(n)
