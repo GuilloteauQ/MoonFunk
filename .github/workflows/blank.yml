@@ -29,15 +29,15 @@ jobs:
       - name: Install luarocks
         run: sudo apt-get install -y luarocks
       
-      - name: Install git
-        run: sudo apt-get install -y git
-      
       - name: Clone and build busted
         run: |
+          cd /home/runner/work/MoonFunk
           git clone https://github.com/Olivine-Labs/busted
           cd busted
           luarocks make
 
       # Runs a set of commands using the runners shell
       - name: Run busted
-        run: busted ../unit_testing.lua
+        run: |
+          cd /home/runner/work/MoonFunk/MoonFunk
+          busted unit_testing.lua
