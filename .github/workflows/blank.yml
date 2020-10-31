@@ -21,12 +21,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      - uses: cachix/install-nix-action@v11
+        with:
+        nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v6
+        with:
+        name: mycache
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        # Only needed for private caches
+        #authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - run: nix-build
       # Runs a single command using the runners shell
-      - name: Install nix
-        run: |
-          sh <(curl -L https://nixos.org/nix/install)
-          . /home/runner/.nix-profile/etc/profile.d/nix.sh
+      # - name: Install nix
+        # run: |
+        #   sh <(curl -L https://nixos.org/nix/install)
+        #  . /home/runner/.nix-profile/etc/profile.d/nix.sh
       
 
       # Runs a set of commands using the runners shell
