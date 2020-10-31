@@ -113,20 +113,3 @@ function print_table(t)
     end
     io.write("\n")
 end
-
--- t = {1, 2, 3, 4, 5}
--- 
--- print_table(t)
--- 
--- iter = Iterator:new(t)
--- 
--- local result = iter:map(function(x) return x * x end):map(function(x) return 2 * x end):sum()
--- 
--- print(result)
-
-t = {1, 2, 3, 4, 5}
-
-iter = Iterator:new(t)
-
-print(iter:enumerate():map(function(x) return x.i * x.e end):min())
-
