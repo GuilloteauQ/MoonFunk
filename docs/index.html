@@ -71,6 +71,14 @@
 	<td class="summary">Get the minimum value of the iterator</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Iterator:max_by_key">Iterator:max_by_key (f)</a></td>
+	<td class="summary">Get the maximum of the iterator based on a comparison function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:min_by_key">Iterator:min_by_key (f)</a></td>
+	<td class="summary">Get the minimum of the iterator based on a comparison function</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Iterator:filter">Iterator:filter (filter_f)</a></td>
 	<td class="summary">Filter the element of the iterator</td>
 	</tr>
@@ -220,6 +228,64 @@
     <h3>Usage:</h3>
     <ul>
         <pre class="example"><span class="keyword">local</span> min = iter:min()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:max_by_key"></a>
+    <strong>Iterator:max_by_key (f)</strong>
+    </dt>
+    <dd>
+    Get the maximum of the iterator based on a comparison function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         the mapping function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the element of the iterator that produces the bigger value when applied f
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> max_by_abs = iter:max_by_key(<span class="global">math</span>.abs)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:min_by_key"></a>
+    <strong>Iterator:min_by_key (f)</strong>
+    </dt>
+    <dd>
+    Get the minimum of the iterator based on a comparison function
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         the mapping function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the element of the iterator that produces the smaller value when applied f
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> min_by_abs = iter:min_by_key(<span class="global">math</span>.abs)</pre>
     </ul>
 
 </dd>
