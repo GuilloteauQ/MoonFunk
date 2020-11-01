@@ -40,7 +40,8 @@ jobs:
           git commit -m "CI: Automated Doc Update" -a | exit 0
       - name: Push changes
         if: github.ref == 'refs/heads/main'
-        uses: ad-m/github-push-action@main
+        uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
         
