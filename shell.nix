@@ -4,5 +4,6 @@ stdenv.mkDerivation {
 	buildInputs = [
 	  lua5_3
       lua53Packages.busted
+      lua53Packages.luacheck
 	];
 }

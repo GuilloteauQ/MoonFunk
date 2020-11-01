@@ -1,10 +1,9 @@
-Iterator = {}
+local Iterator = {}
 Iterator.__index = Iterator
 
+local id = function(x, _) return x, true; end
 
-local id = function(x, b) return x, true; end
-
-function Iterator:new(data)
+function Iterator.new(data)
     local ret = {data = data, f = id}
     setmetatable(ret, Iterator)
     return ret
@@ -58,7 +57,7 @@ function Iterator:filter(filter_f)
 end
 
 function Iterator:count()
-    return self:map(function(x) return 1 end):sum()
+    return self:map(function(_) return 1 end):sum()
 end
 
 function Iterator:enumerate()
@@ -77,7 +76,7 @@ function Iterator:enumerate()
 end
 
 function Iterator:find(x)
-    for i, v in ipairs(self.data) do
+    for _, v in ipairs(self.data) do
         local fv, b = self.f(v)
         if b and fv == x then
             return fv
@@ -90,7 +89,7 @@ end
 function Iterator:consume()
     local t = {}
     local count = 1
-    for i, v in ipairs(self.data) do
+    for _, v in ipairs(self.data) do
         local fv, b = self.f(v)
         if b then
             t[count] = fv
@@ -118,9 +117,4 @@ function Iterator:skip(n)
     return self
 end
 
-function print_table(t)
-    for i, v in ipairs(t) do
-        io.write(v .. " ")
-    end
-    io.write("\n")
-end
+return Iterator
