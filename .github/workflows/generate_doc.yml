@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v11
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v6
+        with:
+          name: mycache
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'      
+
+      # Runs a set of commands using the runners shell
+      - name: Run Ldoc
+        run: nix-shell --command "ldoc src/"
+      
+      - name: Commit doc
+        run: |
+          git add doc/
+          echo ${{ github.ref }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "CI: Automated Doc Update" -a | exit 0
+      - name: Push changes
+        if: github.ref == 'refs/heads/main'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        
