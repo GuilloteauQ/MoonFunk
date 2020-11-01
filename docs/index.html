@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>moon_funk</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>moon_funk</code></h1>
+<p>MoonFunk
+ Module for functional operations in Lua</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Iterator.new">Iterator.new (data)</a></td>
+	<td class="summary">Return a new Iterator on the data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:map">Iterator:map (map_f)</a></td>
+	<td class="summary">Applies a function on a iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:fold">Iterator:fold (fold_f, init)</a></td>
+	<td class="summary">Fold the content of the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:max">Iterator:max ()</a></td>
+	<td class="summary">Get the maximum value of the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:min">Iterator:min ()</a></td>
+	<td class="summary">Get the minimum value of the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:filter">Iterator:filter (filter_f)</a></td>
+	<td class="summary">Filter the element of the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:count">Iterator:count ()</a></td>
+	<td class="summary">Return the number of elements in the iterator</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Iterator.new"></a>
+    <strong>Iterator.new (data)</strong>
+    </dt>
+    <dd>
+    Return a new Iterator on the data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+         some data in a table
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an Iterator on the data
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> iter = Iterator.new({<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>})</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:map"></a>
+    <strong>Iterator:map (map_f)</strong>
+    </dt>
+    <dd>
+    Applies a function on a iterator
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">map_f</span>
+         the function to apply on the elements of the iterator
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the modified iterator
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">iter:map(<span class="keyword">function</span>(x) <span class="keyword">return</span> x * x <span class="keyword">end</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:fold"></a>
+    <strong>Iterator:fold (fold_f, init)</strong>
+    </dt>
+    <dd>
+    Fold the content of the iterator
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fold_f</span>
+         folding function (element, state) -> new state
+        </li>
+        <li><span class="parameter">init</span>
+         the initial state
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the folded iterator
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">iter:fold(<span class="keyword">function</span>(x, s) <span class="keyword">return</span> x + s <span class="keyword">end</span>, <span class="number">0</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:max"></a>
+    <strong>Iterator:max ()</strong>
+    </dt>
+    <dd>
+    Get the maximum value of the iterator
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the maximum value of the data
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> max = iter:max()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:min"></a>
+    <strong>Iterator:min ()</strong>
+    </dt>
+    <dd>
+    Get the minimum value of the iterator
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the minimum value of the data
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> min = iter:min()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:filter"></a>
+    <strong>Iterator:filter (filter_f)</strong>
+    </dt>
+    <dd>
+    Filter the element of the iterator
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filter_f</span>
+         function returning a boolean to filter the iterator
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        iterator with only the value returning true to the filtering function (filter_f)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> even_values = iter:filter(<span class="keyword">function</span>(x) <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">end</span>):consume()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:count"></a>
+    <strong>Iterator:count ()</strong>
+    </dt>
+    <dd>
+    Return the number of elements in the iterator
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the number of elements in the iterator
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> nb_even_elements = iter:filter(<span class="keyword">function</span>(x) <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">end</span>):count()</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 1980-01-01 00:00:00 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
