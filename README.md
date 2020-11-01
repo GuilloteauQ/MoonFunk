@@ -16,4 +16,4 @@ iter:filter(function(x) return x % 2 == 0 end)
 
 ## Documentation
 
-You can find the documentation [here](https://guilloteauq.github.io/moonfunk)
+You can find the documentation [here](https://guilloteauq.github.io/MoonFunk/)
