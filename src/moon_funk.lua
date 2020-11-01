@@ -1,4 +1,4 @@
---- summary.
+--- MoonFunk
 -- Module for functional operations in Lua
 --
 local Iterator = {}
@@ -30,6 +30,11 @@ function Iterator:map(map_f)
     return self
 end
 
+--- Fold the content of the iterator
+-- @param fold_f folding function (element, state) -> new state
+-- @param init the initial state
+-- @return the folded iterator
+-- @usage iter:fold(function(x, s) return x + s end, 0)
 function Iterator:fold(fold_f, init)
     local state = init
     local fold_state_f = function(x)
@@ -46,18 +51,28 @@ function Iterator:fold(fold_f, init)
     return self
 end
 
+--- Get the maximum value of the iterator
+-- @return the maximum value of the data
+-- @usage local max = iter:max()
 function Iterator:max()
     self:fold(function(x, s) return x < s and s or x end, -math.huge)
     local t = self:consume()
     return t[#t]
 end
 
+--- Get the minimum value of the iterator
+-- @return the minimum value of the data
+-- @usage local min = iter:min()
 function Iterator:min()
     self:fold(function(x, s) return x > s and s or x end, math.huge)
     local t = self:consume()
     return t[#t]
 end
 
+--- Filter the element of the iterator
+-- @param filter_f function returning a boolean to filter the iterator
+-- @return iterator with only the value returning true to the filtering function (filter_f)
+-- @usage local even_values = iter:filter(function(x) return x % 2 == 0 end):consume()
 function Iterator:filter(filter_f)
     local old_f = self.f
     self.f = function(x)
@@ -67,6 +82,9 @@ function Iterator:filter(filter_f)
     return self
 end
 
+--- Return the number of elements in the iterator
+-- @return the number of elements in the iterator
+-- @usage local nb_even_elements = iter:filter(function(x) return x % 2 == 0 end):count()
 function Iterator:count()
     return self:map(function(_) return 1 end):sum()
 end
