@@ -103,3 +103,90 @@ describe("Count", function()
         assert(res == 2)
     end)
 end)
+
+describe("Max/Min", function()
+    it("Simple Min", function ()
+        t = {1, 2, 3, 4, 5}
+        iter = Iterator.new(t)
+        res = iter:min()
+        assert(res == 1)
+    end)
+
+    it("Complex Min", function ()
+        t = {7, 1, 2, 3, 4, 5, 2}
+        iter = Iterator.new(t)
+        res = iter:min()
+        assert(res == 1)
+    end)
+
+    it("Empty Min", function ()
+        t = { }
+        iter = Iterator.new(t)
+        res = iter:min()
+        assert(res == nil)
+    end)
+
+    it("Simple Max", function ()
+        t = {1, 2, 3, 4, 5}
+        iter = Iterator.new(t)
+        res = iter:max()
+        assert(res == 5)
+    end)
+
+    it("Complex Max", function ()
+        t = {2, 1, 2, 3, 4, 5, 2}
+        iter = Iterator.new(t)
+        res = iter:max()
+        assert(res == 5)
+    end)
+
+    it("Empty Max", function ()
+        t = { }
+        iter = Iterator.new(t)
+        res = iter:max()
+        assert(res == nil)
+    end)
+
+    it("Simple Min by key", function ()
+        t = {1, -2, 3, -4, 5}
+        iter = Iterator.new(t)
+        res = iter:min_by_key(math.abs)
+        assert(res == 1)
+    end)
+
+    it("Complex Min by key", function ()
+        t = {-2, -1, -2, -6, -4, 5, -1}
+        iter = Iterator.new(t)
+        res = iter:min_by_key(math.abs)
+        assert(res == -1)
+    end)
+
+    it("Empty Min by key", function ()
+        t = { }
+        iter = Iterator.new(t)
+        res = iter:min_by_key(math.abs)
+        assert(res == nil)
+    end)
+
+    it("Simple Max by key", function ()
+        t = {1, -2, 3, -4, 5}
+        iter = Iterator.new(t)
+        res = iter:max_by_key(math.abs)
+        assert(res == 5)
+    end)
+
+    it("Complex Max by key", function ()
+        t = {-2, -1, -2, -6, -4, 5, -1}
+        iter = Iterator.new(t)
+        res = iter:max_by_key(math.abs)
+        assert(res == -6)
+    end)
+
+    it("Empty Max by key", function ()
+        t = { }
+        iter = Iterator.new(t)
+        res = iter:max_by_key(math.abs)
+        assert(res == nil)
+    end)
+end)
+

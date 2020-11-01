@@ -69,6 +69,29 @@ function Iterator:min()
     return t[#t]
 end
 
+
+--- Get the maximum of the iterator based on a comparison function
+-- @param f the mapping function
+-- @return the element of the iterator that produces the bigger value when applied f
+-- @usage local max_by_abs = iter:max_by_key(math.abs)
+function Iterator:max_by_key(f)
+   self:map(function(x) return {x, f(x)} end)
+       :fold(function(x, s) return x[2] < s[2] and s or x end, {nil, -math.huge})
+   local t = self:consume()
+   return t[#t] ~= nil and t[#t][1] or nil
+end
+
+--- Get the minimum of the iterator based on a comparison function
+-- @param f the mapping function
+-- @return the element of the iterator that produces the smaller value when applied f
+-- @usage local min_by_abs = iter:min_by_key(math.abs)
+function Iterator:min_by_key(f)
+   self:map(function(x) return {x, f(x)} end)
+       :fold(function(x, s) return x[2] > s[2] and s or x end, {nil, math.huge})
+   local t = self:consume()
+   return t[#t] ~= nil and t[#t][1] or nil
+end
+
 --- Filter the element of the iterator
 -- @param filter_f function returning a boolean to filter the iterator
 -- @return iterator with only the value returning true to the filtering function (filter_f)
