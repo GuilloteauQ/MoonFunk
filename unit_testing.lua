@@ -1,6 +1,6 @@
--- Iterator = dofile("moon_funk.lua")
+-- local Iterator = dofile("src/moon_funk.lua")
 
-local Iterator = require "Iterator" 
+local Iterator = require "moon_funk" 
 
 describe("Skip", function()
     it("Skip positive", function ()

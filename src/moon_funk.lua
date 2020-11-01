@@ -1,14 +1,25 @@
+--- summary.
+-- Module for functional operations in Lua
+--
 local Iterator = {}
 Iterator.__index = Iterator
 
 local id = function(x, _) return x, true; end
 
+--- Return a new Iterator on the data
+-- @param data some data in a table
+-- @return an Iterator on the data
+-- @usage local iter = Iterator.new({1, 2, 3, 4, 5})
 function Iterator.new(data)
     local ret = {data = data, f = id}
     setmetatable(ret, Iterator)
     return ret
 end
 
+--- Applies a function on a iterator
+-- @param map_f the function to apply on the elements of the iterator
+-- @return the modified iterator
+-- @usage iter:map(function(x) return x * x end)
 function Iterator:map(map_f)
     local old_f = self.f
     self.f = function(x)
@@ -114,6 +125,41 @@ function Iterator:skip(n)
         remaining_to_skip = remaining_to_skip - 1
         return fx, (remaining_to_skip < 0 and b)
     end
+    return self
+end
+
+
+-- TODO: there is probably  a beeter way to do it
+-- we could change the signature of f to take 2 args
+-- there might be some issue if the size (before filter)
+-- are not the same (or will need to fix it with states
+-- everywhere ...)
+function Iterator:zip(other)
+    local t_zip = { }
+    local t_self = self:consume()
+    local t_other = other:consume()
+    assert(#t_self == #t_other)
+
+    for i = 1, #t_self do
+        t_zip[i] = {t_self[i], t_other[i]}
+    end
+    self.data = t_zip
+    self.f = id
+    return self
+end
+
+function Iterator:product(other)
+    local t_prod = { }
+    local t_self = self:consume()
+    local t_other = other:consume()
+
+    for i = 1, #t_self do
+        for j = 1, #t_other do
+            t_prod[i] = {t_self[i], t_other[j]}
+        end
+    end
+    self.data = t_prod
+    self.f = id
     return self
 end
 
