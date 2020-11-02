@@ -1,6 +1,6 @@
 -- local Iterator = dofile("src/moon_funk.lua")
 
-local Iterator = require "moon_funk" 
+local Iterator = require "moon_funk"
 
 describe("Skip", function()
     it("Skip positive", function ()
@@ -187,6 +187,93 @@ describe("Max/Min", function()
         iter = Iterator.new(t)
         res = iter:max_by_key(math.abs)
         assert(res == nil)
+    end)
+end)
+
+function compare_tables(t1, t2)
+    if #t1 ~= #t2 then
+        return false
+    end
+    for i = 1, #t1 do
+        if type(t1[i]) ~= type(t2[i]) then
+            return false
+        elseif type(t1[i]) == "table" and not compare_tables(t1[i], t2[i]) then
+            return false
+        elseif type(t1[i]) == "number" and t1[i] ~= t2[i] then
+            return false
+        end
+    end
+    return true
+end
+
+describe("Map", function()
+    it("Simple Map", function()
+        local t = {1, 2, 3, 4, 5}
+        local iter = Iterator.new(t)
+        iter:map(function(x) return 2 * x end)
+        local t2 = iter:consume()
+        assert(compare_tables({2, 4, 6, 8, 10}, t2))
+    end)
+
+    it("Empty Map", function()
+        local t = { }
+        local iter = Iterator.new(t)
+        iter:map(function(x) return 2 * x end)
+        local t2 = iter:consume()
+        assert(compare_tables({}, t2))
+    end)
+end)
+
+describe("Filter", function()
+    it("Simple Filter", function()
+        local t = {1, 2, 3, 4, 5}
+        local iter = Iterator.new(t)
+        iter:filter(function(x) return x % 2 == 0 end)
+        local t2 = iter:consume()
+        assert(compare_tables({2, 4}, t2))
+    end)
+
+    it("Empty Filter", function()
+        local t = { }
+        local iter = Iterator.new(t)
+        iter:filter(function(x) return x % 2 == 0 end)
+        local t2 = iter:consume()
+        assert(compare_tables({}, t2))
+    end)
+
+    it("No match Filter", function()
+        local t = {1, 3, 5, 7, 9}
+        local iter = Iterator.new(t)
+        iter:filter(function(x) return x % 2 == 0 end)
+        local t2 = iter:consume()
+        assert(compare_tables({ }, t2))
+    end)
+end)
+
+
+describe("Enumerate", function()
+    it("Simple Enumerate", function()
+        local t = {1, 2, 3, 4, 5}
+        local iter = Iterator.new(t)
+        iter:enumerate()
+        local t2 = iter:consume()
+        assert(compare_tables({{1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}}, t2))
+    end)
+
+    it("Empty Enumerate", function()
+        local t = { }
+        local iter = Iterator.new(t)
+        iter:enumerate()
+        local t2 = iter:consume()
+        assert(compare_tables({}, t2))
+    end)
+
+    it("Enumerate after Filter", function()
+        local t = {1, 2, 3, 4, 5}
+        local iter = Iterator.new(t)
+        iter:filter(function(x) return x % 2 == 0 end):enumerate()
+        local t2 = iter:consume()
+        assert(compare_tables({{1, 2}, {2, 4}}, t2))
     end)
 end)
 

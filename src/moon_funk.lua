@@ -122,7 +122,7 @@ function Iterator:enumerate()
         local fx, b = old_f(x)
         if b then
             state = state + 1
-            return {i = state, e = fx}, b
+            return {state, fx}, b
         else
             return fx, b
         end
