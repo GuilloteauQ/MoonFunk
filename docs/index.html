@@ -86,6 +86,27 @@
 	<td class="name" nowrap><a href="#Iterator:count">Iterator:count ()</a></td>
 	<td class="summary">Return the number of elements in the iterator</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:enumerate">Iterator:enumerate ()</a></td>
+	<td class="summary">Assocaite every element of the iterator with its rank</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:find">Iterator:find (x)</a></td>
+	<td class="summary">Find the elemennt in the iterator
+ Also consume the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:consume">Iterator:consume ()</a></td>
+	<td class="summary">Return the table from the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:sum">Iterator:sum ()</a></td>
+	<td class="summary">Computer the sum of the elements of the iterator</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Iterator:skip">Iterator:skip (n)</a></td>
+	<td class="summary">Skip the first n elements of the iterator</td>
+	</tr>
 </table>
 
 <br/>
@@ -338,6 +359,134 @@
     <h3>Usage:</h3>
     <ul>
         <pre class="example"><span class="keyword">local</span> nb_even_elements = iter:filter(<span class="keyword">function</span>(x) <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">end</span>):count()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:enumerate"></a>
+    <strong>Iterator:enumerate ()</strong>
+    </dt>
+    <dd>
+    Assocaite every element of the iterator with its rank
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the iterator with every elemnent associated with its rank
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">iter:enumerate()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:find"></a>
+    <strong>Iterator:find (x)</strong>
+    </dt>
+    <dd>
+    Find the elemennt in the iterator
+ Also consume the iterator
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         the element to find in the iterator
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the element in if found, nil otherwise
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> iter:find(x) <span class="keyword">then</span> <span class="global">print</span>(<span class="string">"found !"</span>) <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:consume"></a>
+    <strong>Iterator:consume ()</strong>
+    </dt>
+    <dd>
+    Return the table from the iterator
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table with the values of the iterator
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> result_table = iter:consume()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:sum"></a>
+    <strong>Iterator:sum ()</strong>
+    </dt>
+    <dd>
+    Computer the sum of the elements of the iterator
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        sum of the element of the irerator
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> sum = iter:sum()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Iterator:skip"></a>
+    <strong>Iterator:skip (n)</strong>
+    </dt>
+    <dd>
+    Skip the first n elements of the iterator
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+         the number of elements to skip
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the iterator without the first n elements
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">iter:skip(<span class="number">10</span>)</pre>
     </ul>
 
 </dd>
