@@ -112,6 +112,9 @@ function Iterator:count()
     return self:map(function(_) return 1 end):sum()
 end
 
+--- Assocaite every element of the iterator with its rank
+-- @return the iterator with every elemnent associated with its rank
+-- @usage iter:enumerate()
 function Iterator:enumerate()
     local old_f = self.f
     local state = 0
@@ -127,6 +130,12 @@ function Iterator:enumerate()
     return self
 end
 
+
+--- Find the elemennt in the iterator
+-- Also consume the iterator
+-- @param x the element to find in the iterator
+-- @return the element in if found, nil otherwise
+-- @usage if iter:find(x) then print("found !") end
 function Iterator:find(x)
     for _, v in ipairs(self.data) do
         local fv, b = self.f(v)
@@ -138,6 +147,9 @@ function Iterator:find(x)
     return nil
 end
 
+--- Return the table from the iterator
+-- @return table with the values of the iterator
+-- @usage local result_table = iter:consume()
 function Iterator:consume()
     local t = {}
     local count = 1
@@ -152,12 +164,19 @@ function Iterator:consume()
     return t
 end
 
+--- Computer the sum of the elements of the iterator
+-- @return sum of the element of the irerator
+-- @usage local sum = iter:sum()
 function Iterator:sum()
     self:fold(function(x, s) return s + x end, 0)
     local t = self:consume()
     return t[#t] ~= nil and t[#t] or 0
 end
 
+--- Skip the first n elements of the iterator
+-- @param n the number of elements to skip
+-- @return the iterator without the first n elements
+-- @usage iter:skip(10)
 function Iterator:skip(n)
     local remaining_to_skip = n
     local old_f = self.f
